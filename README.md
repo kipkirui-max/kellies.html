@@ -1,4 +1,4 @@
-# 📌 Family Wall
+># 📌 Family Wall
 
 Family Wall is a simple web application that allows family members to connect, share posts, and stay updated in a private space.  
 It includes a login system, profile picture upload, and a shared wall where members can post and interact.
@@ -18,4 +18,12 @@ It includes a login system, profile picture upload, and a shared wall where memb
 1. Clone the repository:
    ```bash
    git clone https://github.com/your-username/family-wall.git
-   
+  ## 🌍 Live Demo
+[Click here to view Family Wall](https://yourusername.github.io/family-wall/)
+## 🛠 Tech Stack
+- HTML5  
+- CSS3  
+- JavaScript (Vanilla)
+- ## 📸 Screenshot
+![Family Wall Demo](images/demo.png)
+
