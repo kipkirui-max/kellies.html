@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Family Wall</title>
   <style>
     body {
@@ -12,21 +13,27 @@
     }
 
     .overlay {
-      background: rgba(255, 255, 255, 0.8);
+      background: rgba(255, 255, 255, 0.9);
       min-height: 100vh;
       padding: 20px;
     }
 
+    /* ===== HEADER ===== */
     header {
       display: flex;
       justify-content: space-between;
       align-items: center;
       margin-bottom: 20px;
+      flex-wrap: wrap;
+      gap: 12px;
     }
 
     h1 {
-      font-size: 26px;
-      color: #444;
+      font-size: 28px;
+      background: linear-gradient(to right, #3b82f6, #9333ea);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin: 0;
     }
 
     #profile-bar {
@@ -34,6 +41,13 @@
       align-items: center;
       gap: 10px;
       cursor: pointer;
+      padding: 6px 12px;
+      border-radius: 20px;
+      background: #f3f4f6;
+      transition: 0.3s;
+    }
+    #profile-bar:hover {
+      background: #e5e7eb;
     }
 
     #profile-pic {
@@ -41,52 +55,70 @@
       height: 45px;
       border-radius: 50%;
       object-fit: cover;
-      border: 2px solid #666;
+      border: 2px solid #3b82f6;
     }
 
     #logoutBtn {
-      background: #ef4444;
+      background: linear-gradient(45deg, #ef4444, #f87171);
       color: white;
       border: none;
-      border-radius: 8px;
-      padding: 6px 12px;
+      border-radius: 10px;
+      padding: 8px 14px;
       cursor: pointer;
+      font-size: 15px;
+      transition: 0.3s;
     }
     #logoutBtn:hover {
-      background: #dc2626;
+      opacity: 0.85;
     }
 
+    /* ===== POST BOX ===== */
     .post-box {
       margin-bottom: 20px;
+      text-align: center;
     }
 
     .post-box textarea {
       width: 100%;
-      padding: 10px;
-      border-radius: 10px;
+      padding: 12px;
+      border-radius: 12px;
       border: 1px solid #ccc;
       resize: none;
+      font-size: 15px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.05);
     }
 
     .post-box button {
-      margin-top: 10px;
-      padding: 8px 16px;
+      margin-top: 12px;
+      padding: 10px 20px;
       border: none;
-      border-radius: 8px;
-      background: #3b82f6;
+      border-radius: 12px;
+      background: linear-gradient(45deg, #3b82f6, #2563eb);
       color: white;
       cursor: pointer;
+      font-size: 15px;
+      transition: 0.3s;
     }
     .post-box button:hover {
-      background: #2563eb;
+      opacity: 0.9;
     }
 
+    /* ===== POSTS ===== */
     .post {
       background: white;
-      padding: 15px;
-      margin-bottom: 15px;
-      border-radius: 12px;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      padding: 16px;
+      margin-bottom: 18px;
+      border-radius: 14px;
+      box-shadow: 0 3px 8px rgba(0,0,0,0.1);
+      max-width: 800px;
+      margin-left: auto;
+      margin-right: auto;
+      animation: fadeIn 0.5s ease-in-out;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
     }
 
     .post-header {
@@ -94,6 +126,7 @@
       align-items: center;
       gap: 10px;
       margin-bottom: 6px;
+      flex-wrap: wrap;
     }
 
     .post-header img {
@@ -111,48 +144,73 @@
 
     .actions button {
       font-size: 12px;
-      padding: 4px 8px;
+      padding: 5px 10px;
       border: none;
-      border-radius: 6px;
+      border-radius: 8px;
       margin-right: 6px;
       cursor: pointer;
+      transition: 0.3s;
     }
     .edit-btn { background: #3b82f6; color: white; }
     .edit-btn:hover { background: #2563eb; }
     .delete-btn { background: #ef4444; color: white; }
     .delete-btn:hover { background: #dc2626; }
 
+    /* ===== REPLIES ===== */
     .reply {
       margin-left: 40px;
-      background: #f9f9f9;
+      background: #f9fafb;
       padding: 8px;
-      border-radius: 8px;
+      border-radius: 10px;
       margin-top: 8px;
+      border-left: 3px solid #3b82f6;
     }
 
     .reply-box {
       margin-left: 40px;
       margin-top: 6px;
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
     }
 
     .reply-box input {
-      padding: 5px;
-      border-radius: 6px;
+      padding: 6px;
+      border-radius: 8px;
       border: 1px solid #ccc;
-      width: 70%;
+      flex: 1;
+      min-width: 150px;
     }
 
     .reply-box button {
-      padding: 5px 10px;
-      margin-left: 6px;
+      padding: 6px 12px;
       border: none;
-      border-radius: 6px;
-      background: #10b981;
+      border-radius: 8px;
+      background: linear-gradient(45deg, #10b981, #059669);
       color: white;
       cursor: pointer;
+      transition: 0.3s;
     }
     .reply-box button:hover {
-      background: #059669;
+      opacity: 0.9;
+    }
+
+    /* ===== RESPONSIVENESS ===== */
+    @media (max-width: 1024px) {
+      .post { max-width: 90%; }
+    }
+
+    @media (max-width: 768px) {
+      header { justify-content: center; text-align: center; }
+      h1 { font-size: 24px; width: 100%; }
+      #profile-bar { justify-content: center; width: 100%; }
+      #logoutBtn { width: 100%; padding: 10px; }
+    }
+
+    @media (max-width: 480px) {
+      h1 { font-size: 20px; }
+      .reply-box { flex-direction: column; }
+      .reply-box input, .reply-box button { width: 100%; }
     }
   </style>
 </head>
@@ -177,204 +235,132 @@
 
   <input type="file" id="profileInput" accept="image/*" style="display:none" />
 
-  <script>
-    const user = localStorage.getItem("familyUser");
-    if (!user) window.location.href = "index.html";
+  <!-- Your same JS logic goes here -->
+   <!-- Keep this at the end of <body> -->
+<script>
+  let currentUser = localStorage.getItem("username") || "Guest";
 
-    document.getElementById("welcome-message").textContent = "Welcome, " + user + " 🎉";
-    document.getElementById("profile-name").textContent = user;
+  // Show username
+  document.getElementById("profile-name").textContent = currentUser;
+  document.getElementById("welcome-message").textContent = "Welcome 🎉 " + currentUser;
 
-    // Load saved profile pic
-    let savedPic = localStorage.getItem("profilePic_" + user);
-    if (savedPic) {
-      document.getElementById("profile-pic").src = savedPic;
+  // === Change profile pic ===
+  function changeProfilePic() {
+    document.getElementById("profileInput").click();
+  }
+
+  document.getElementById("profileInput").addEventListener("change", function (event) {
+    let file = event.target.files[0];
+    if (file) {
+      let reader = new FileReader();
+      reader.onload = function (e) {
+        document.getElementById("profile-pic").src = e.target.result;
+        localStorage.setItem("profilePic", e.target.result);
+      };
+      reader.readAsDataURL(file);
     }
+  });
 
-    // Change profile picture
-    function changeProfilePic() {
-      document.getElementById("profileInput").click();
-    }
+  // Load saved profile pic
+  if (localStorage.getItem("profilePic")) {
+    document.getElementById("profile-pic").src = localStorage.getItem("profilePic");
+  }
 
-    document.getElementById("profileInput").addEventListener("change", function() {
-      const file = this.files[0];
-      if (file) {
-        const reader = new FileReader();
-        reader.onload = function(e) {
-          const imgData = e.target.result;
-          document.getElementById("profile-pic").src = imgData;
-          localStorage.setItem("profilePic_" + user, imgData);
-          renderPosts();
-        }
-        reader.readAsDataURL(file);
-      }
+  // === Add post ===
+  function addPost() {
+    let text = document.getElementById("postText").value.trim();
+    if (text === "") return;
+
+    let posts = JSON.parse(localStorage.getItem("posts") || "[]");
+    let newPost = {
+      id: Date.now(),
+      user: currentUser,
+      pic: localStorage.getItem("profilePic") || "default-avatar.png",
+      text: text,
+      time: new Date().toLocaleString(),
+      replies: []
+    };
+    posts.unshift(newPost);
+    localStorage.setItem("posts", JSON.stringify(posts));
+    document.getElementById("postText").value = "";
+    displayPosts();
+  }
+
+  // === Display posts ===
+  function displayPosts() {
+    let posts = JSON.parse(localStorage.getItem("posts") || "[]");
+    let postsContainer = document.getElementById("posts");
+    postsContainer.innerHTML = "";
+
+    posts.forEach(post => {
+      let div = document.createElement("div");
+      div.className = "post";
+      div.innerHTML = `
+        <div class="post-header">
+          <img src="${post.pic}" alt="user">
+          <strong>${post.user}</strong>
+          <span class="time">${post.time}</span>
+        </div>
+        <p>${post.text}</p>
+        <div class="actions">
+          <button class="edit-btn" onclick="editPost(${post.id})">Edit</button>
+          <button class="delete-btn" onclick="deletePost(${post.id})">Delete</button>
+        </div>
+        <div class="replies" id="replies-${post.id}">
+          ${post.replies.map(r => `<div class="reply"><strong>${r.user}:</strong> ${r.text}</div>`).join("")}
+        </div>
+        <div class="reply-box">
+          <input type="text" id="replyText-${post.id}" placeholder="Write a reply...">
+          <button onclick="addReply(${post.id})">Reply</button>
+        </div>
+      `;
+      postsContainer.appendChild(div);
     });
+  }
 
-    function logout() {
-      localStorage.removeItem("familyUser");
-      window.location.href = "index.html";
+  // === Edit post ===
+  function editPost(id) {
+    let posts = JSON.parse(localStorage.getItem("posts") || "[]");
+    let post = posts.find(p => p.id === id);
+    let newText = prompt("Edit your post:", post.text);
+    if (newText) {
+      post.text = newText;
+      localStorage.setItem("posts", JSON.stringify(posts));
+      displayPosts();
     }
+  }
 
-    let posts = JSON.parse(localStorage.getItem("familyPosts") || "[]");
+  // === Delete post ===
+  function deletePost(id) {
+    let posts = JSON.parse(localStorage.getItem("posts") || "[]");
+    posts = posts.filter(p => p.id !== id);
+    localStorage.setItem("posts", JSON.stringify(posts));
+    displayPosts();
+  }
 
-    function savePosts() {
-      localStorage.setItem("familyPosts", JSON.stringify(posts));
-    }
+  // === Add reply ===
+  function addReply(postId) {
+    let input = document.getElementById("replyText-" + postId);
+    let text = input.value.trim();
+    if (text === "") return;
 
-    function renderPosts() {
-      const container = document.getElementById("posts");
-      container.innerHTML = "";
-      posts.forEach((post, index) => {
-        const postDiv = document.createElement("div");
-        postDiv.className = "post";
+    let posts = JSON.parse(localStorage.getItem("posts") || "[]");
+    let post = posts.find(p => p.id === postId);
+    post.replies.push({ user: currentUser, text: text });
+    localStorage.setItem("posts", JSON.stringify(posts));
+    displayPosts();
+  }
 
-        const postHeader = document.createElement("div");
-        postHeader.className = "post-header";
+  // === Logout ===
+  function logout() {
+    localStorage.removeItem("username");
+    localStorage.removeItem("profilePic");
+    window.location.href = "index.html"; 
+  }
 
-        // profile pic
-        const img = document.createElement("img");
-        const pic = localStorage.getItem("profilePic_" + post.author) || "default-avatar.png";
-        img.src = pic;
-
-        const name = document.createElement("strong");
-        name.textContent = post.author;
-
-        const time = document.createElement("span");
-        time.className = "time";
-        time.textContent = post.time;
-
-        postHeader.appendChild(img);
-        postHeader.appendChild(name);
-        postHeader.appendChild(time);
-
-        postDiv.appendChild(postHeader);
-        postDiv.innerHTML += `<p>${post.text}</p>`;
-
-        // actions (only for author)
-        if (post.author === user) {
-          const actions = document.createElement("div");
-          actions.className = "actions";
-          actions.innerHTML = `
-            <button class="edit-btn" onclick="editPost(${index})">Edit</button>
-            <button class="delete-btn" onclick="deletePost(${index})">Delete</button>
-          `;
-          postDiv.appendChild(actions);
-        }
-
-        // replies
-        if (post.replies) {
-          post.replies.forEach((reply, rIndex) => {
-            const r = document.createElement("div");
-            r.className = "reply";
-
-            const rHeader = document.createElement("div");
-            rHeader.className = "post-header";
-
-            const rImg = document.createElement("img");
-            const rPic = localStorage.getItem("profilePic_" + reply.author) || "default-avatar.png";
-            rImg.src = rPic;
-
-            const rName = document.createElement("strong");
-            rName.textContent = reply.author;
-
-            const rTime = document.createElement("span");
-            rTime.className = "time";
-            rTime.textContent = reply.time;
-
-            rHeader.appendChild(rImg);
-            rHeader.appendChild(rName);
-            rHeader.appendChild(rTime);
-
-            r.appendChild(rHeader);
-            r.innerHTML += `<p>${reply.text}</p>`;
-
-            // reply actions (only for author)
-            if (reply.author === user) {
-              const rActions = document.createElement("div");
-              rActions.className = "actions";
-              rActions.innerHTML = `
-                <button class="edit-btn" onclick="editReply(${index}, ${rIndex})">Edit</button>
-                <button class="delete-btn" onclick="deleteReply(${index}, ${rIndex})">Delete</button>
-              `;
-              r.appendChild(rActions);
-            }
-
-            postDiv.appendChild(r);
-          });
-        }
-
-        // reply box
-        const replyBox = document.createElement("div");
-        replyBox.className = "reply-box";
-        replyBox.innerHTML = `
-          <input type="text" placeholder="Write a reply..." id="reply-${index}">
-          <button onclick="addReply(${index})">Reply</button>
-        `;
-        postDiv.appendChild(replyBox);
-
-        container.appendChild(postDiv);
-      });
-    }
-
-    function addPost() {
-      const text = document.getElementById("postText").value.trim();
-      if (!text) return;
-      const time = new Date().toLocaleString();
-      posts.unshift({ author: user, text: text, time: time, replies: [] });
-      document.getElementById("postText").value = "";
-      savePosts();
-      renderPosts();
-    }
-
-    function addReply(index) {
-      const input = document.getElementById("reply-" + index);
-      const text = input.value.trim();
-      if (!text) return;
-      const time = new Date().toLocaleString();
-      posts[index].replies.push({ author: user, text: text, time: time });
-      input.value = "";
-      savePosts();
-      renderPosts();
-    }
-
-    function editPost(index) {
-      const newText = prompt("Edit your message:", posts[index].text);
-      if (newText !== null && newText.trim() !== "") {
-        posts[index].text = newText.trim();
-        posts[index].time = new Date().toLocaleString();
-        savePosts();
-        renderPosts();
-      }
-    }
-
-    function deletePost(index) {
-      if (confirm("Are you sure you want to delete this message?")) {
-        posts.splice(index, 1);
-        savePosts();
-        renderPosts();
-      }
-    }
-
-    function editReply(postIndex, replyIndex) {
-      const newText = prompt("Edit your reply:", posts[postIndex].replies[replyIndex].text);
-      if (newText !== null && newText.trim() !== "") {
-        posts[postIndex].replies[replyIndex].text = newText.trim();
-        posts[postIndex].replies[replyIndex].time = new Date().toLocaleString();
-        savePosts();
-        renderPosts();
-      }
-    }
-
-    function deleteReply(postIndex, replyIndex) {
-      if (confirm("Are you sure you want to delete this reply?")) {
-        posts[postIndex].replies.splice(replyIndex, 1);
-        savePosts();
-        renderPosts();
-      }
-    }
-
-    renderPosts();
-  </script>
-  
+  // Initial load
+  displayPosts();
+</script>
 
 </body>
 </html>
