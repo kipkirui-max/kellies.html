@@ -2,8 +2,8 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- makes it responsive -->
   <title>Family Wall - Login</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
     /* Reset */
     * {
@@ -20,11 +20,157 @@
       align-items: center;
       background: url("images/family-bg.jpg") no-repeat center center/cover;
       position: relative;
+      padding: 20px;
     }
 
     /* dark overlay for readability */
     body::before {
       content: "";
       position: absolute;
-      top: 0; left: 0; right:
-        
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0,0,0,0.5);
+    }
+
+    .login-container {
+      position: relative;
+      background: rgba(255,255,255,0.95);
+      padding: 40px 30px;
+      border-radius: 16px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+      text-align: center;
+      width: 100%;
+      max-width: 350px; /* responsive width */
+      animation: popIn 0.8s ease;
+    }
+
+    .login-container h1 {
+      margin-bottom: 20px;
+      font-size: 26px;
+      color: #333;
+    }
+
+    .login-container select,
+    .login-container input {
+      width: 100%;
+      padding: 12px;
+      margin: 10px 0;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      font-size: 16px;
+    }
+
+    .login-container button {
+      width: 100%;
+      padding: 12px;
+      margin-top: 15px;
+      background: linear-gradient(45deg, #ff7e5f, #feb47b);
+      border: none;
+      border-radius: 8px;
+      color: white;
+      font-size: 18px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .login-container button:hover {
+      transform: scale(1.05);
+      background: linear-gradient(45deg, #ff6a4d, #fda65d);
+    }
+
+    @keyframes popIn {
+      from { transform: scale(0.8); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+
+    footer {
+      position: absolute;
+      bottom: 10px;
+      color: white;
+      font-size: 14px;
+      text-align: center;
+      width: 100%;
+      padding: 0 10px;
+    }
+
+    /* =====================
+       RESPONSIVENESS
+    ====================== */
+    @media (max-width: 768px) {
+      .login-container {
+        padding: 30px 20px;
+      }
+      .login-container h1 {
+        font-size: 22px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      body {
+        padding: 10px;
+      }
+      .login-container {
+        padding: 25px 15px;
+        border-radius: 12px;
+      }
+      .login-container h1 {
+        font-size: 20px;
+      }
+      .login-container select,
+      .login-container input,
+      .login-container button {
+        font-size: 14px;
+        padding: 10px;
+      }
+      footer {
+        font-size: 12px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="login-container">
+    <h1>👨‍👩‍👧‍👦 Welcome to Family Wall</h1>
+    <select id="username">
+      <option value="">-- Select Member --</option>
+      <option value="Keva">Keva</option>
+      <option value="Jelly">Jelly</option>
+      <option value="Dad">Dad</option>
+      <option value="Mum">Mum</option>
+      <option value="Sister">Sister</option>
+      <option value="Brother">Brother</option>
+    </select>
+    <input type="password" id="password" placeholder="Enter Password">
+    <button onclick="login()">Login</button>
+  </div>
+
+  <footer>❤️ Built with love for our family</footer>
+
+  <script>
+    const users = {
+      "Keva": "1546",
+      "Jelly": "6652",
+      "Dad": "dadpass",
+      "Mum": "mumpass",
+      "Sister": "sispass",
+      "Brother": "brospass"
+    };
+
+    function login() {
+      const user = document.getElementById("username").value;
+      const pass = document.getElementById("password").value;
+
+      if (!user || !pass) {
+        alert("Please select your name and enter password!");
+        return;
+      }
+
+      if (users[user] === pass) {
+        localStorage.setItem("familyUser", user);
+        window.location.href = "wall.html";
+      } else {
+        alert("Invalid password. Try again!");
+      }
+    }
+  </script>
+</body>
+</html>
